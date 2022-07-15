@@ -11,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
+app.use(express.static('public'));
+
 const PORT = process.env.PORT || 3001;
 
 const { notes } = require('./db/db.json');
@@ -54,6 +56,16 @@ app.post('/api/notes', (req, res) => {
   const note = createNewNote(req.body, notes);
 
   res.json(note);
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+  const result = findById(req.params.id, notes);
+
+  res.json(result);
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.listen(PORT, () => {

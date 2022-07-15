@@ -1,29 +1,14 @@
 {
   "notes": [
     {
-      "id": "1",
-      "title": "New",
-      "text": "Test text"
+      "title": "Crazy New Note",
+      "text": "This thing is actually working???",
+      "id": "rNj7lQG8Y"
     },
     {
-      "id": "2",
-      "title": "Test Title",
-      "text": "Test text"
-    },
-    {
-      "id": "3",
-      "title": "Test Title",
-      "text": "Test text"
-    },
-    {
-      "id": "4",
-      "title": "Test Title",
-      "text": "Test text"
-    },
-    {
-      "id": "5",
-      "title": "Test Title",
-      "text": "Test text"
+      "title": "This is a new note",
+      "text": "Should've saved the working application",
+      "id": "nqDaFOHcT"
     }
   ]
 }
