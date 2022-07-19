@@ -15,7 +15,7 @@ app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3001;
 
-const { notes } = require('./db/db.json');
+const notes = require('./db/db.json');
 
 function findById(id, notesArray) {
   const result = notesArray.filter(note => note.id === id)[0];
@@ -27,9 +27,20 @@ function createNewNote(body, notesArray) {
   const note = body;
   notesArray.push(note);
 
-  fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify({ notes: notesArray }, null, 2));
+  fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(notesArray, null, 2));
 
   return note;
+}
+
+function deleteNote(id, notesArray) {
+  for (let i = 0; i < notesArray.length; i++) {
+    let note = notesArray[i];
+
+    if (note.id == id) {
+      notesArray.splice(i, 1);
+      fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(notesArray, null, 2));
+    }
+  }
 }
 
 // Get all notes
@@ -58,10 +69,13 @@ app.post('/api/notes', (req, res) => {
   res.json(note);
 });
 
+// ************** NEED TO GET ROUTE TO DELETE NOTE************
 app.delete('/api/notes/:id', (req, res) => {
-  const result = findById(req.params.id, notes);
+  deleteNote(req.params.id, notes);
 
-  res.json(result);
+  res.json({
+    message: `Successfully deleted note`,
+  });
 });
 
 app.get('/', (req, res) => {
